@@ -19,16 +19,16 @@ class Vehicle(object):
     def calc_route_to_ride(self, ride):
         temp_loc = [self.location[0], self.location[1]]
         route = []
-        while temp_loc[0] != ride.finish_loc[0]:
-            if temp_loc[0] < ride.finish_loc[0]:
+        while temp_loc[0] != ride.start_loc[0]:
+            if temp_loc[0] < ride.start_loc[0]:
                 temp_loc[0] += 1
                 route.append([temp_loc[0], temp_loc[1]])
             else:
                 temp_loc[0] -= 1
                 route.append([temp_loc[0], temp_loc[1]])
 
-        while temp_loc[1] != ride.finish_loc[1]:
-            if temp_loc[1] < ride.finish_loc[1]:
+        while temp_loc[1] != ride.start_loc[1]:
+            if temp_loc[1] < ride.start_loc[1]:
                 temp_loc[1] += 1
                 route.append([temp_loc[0], temp_loc[1]])
             else:

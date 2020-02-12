@@ -4,7 +4,7 @@ from vehicle import Vehicle
 
 def main():
     # read file
-    with open("d_metropolis.in", "r") as f:
+    with open("c_no_hurry.in", "r") as f:
         # read info
         info = re.split("[ \n]", f.readline())[0:6]
         info = [int(i) for i in info]
@@ -41,12 +41,16 @@ def main():
         canceled_rides = []
         unavailable_vehicles = []
         for t in range(steps+1):
-            print(t)
-            for vehicle in unavailable_vehicles:
+
+            index = 0
+            while index < len(unavailable_vehicles):
+                vehicle = unavailable_vehicles[index]
                 vehicle.move()
                 if not vehicle.route:
                     available_vehicles.append(vehicle)
-                    unavailable_vehicles.remove(vehicle)
+                    del unavailable_vehicles[index]
+                else:
+                    index += 1
 
             while True:
                 if available_vehicles:
@@ -61,21 +65,20 @@ def main():
                                 vehicle.get_assigned_to_ride(ride)
                                 unavailable_vehicles.append(vehicle)
                                 available_vehicles.remove(vehicle)
+
                         else:
-                            canceled_rides.append(rides.pop(0))
+                            canceled_rides.append(ride)
                     else:
                         break
                 else:
                     break
-
-
 
         for vehicle in available_vehicles:
             print(vehicle.id, vehicle.history)
 
         print("\n Unavailable should be None")
         for vehicle in unavailable_vehicles:
-            print(vehicle.id, vehicle.history)
+            print(vehicle.id, vehicle.history, vehicle.route)
 
         print("\nCanceled rides: ", len(canceled_rides))
         for ride in canceled_rides:

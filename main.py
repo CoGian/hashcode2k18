@@ -4,7 +4,7 @@ from vehicle import Vehicle
 
 def main():
     # read file
-    with open("b_should_be_easy.in", "r") as f:
+    with open("d_metropolis.in", "r") as f:
         # read info
         info = re.split("[ \n]", f.readline())[0:6]
         info = [int(i) for i in info]
@@ -40,8 +40,8 @@ def main():
             available_vehicles.append(vehicle)
         canceled_rides = []
         unavailable_vehicles = []
-        for t in range(steps):
-
+        for t in range(steps+1):
+            print(t)
             for vehicle in unavailable_vehicles:
                 vehicle.move()
                 if not vehicle.route:
@@ -73,10 +73,11 @@ def main():
         for vehicle in available_vehicles:
             print(vehicle.id, vehicle.history)
 
+        print("\n Unavailable should be None")
         for vehicle in unavailable_vehicles:
             print(vehicle.id, vehicle.history)
 
-        print("\nCanceled rides")
+        print("\nCanceled rides: ", len(canceled_rides))
         for ride in canceled_rides:
             print(ride.code)
 
